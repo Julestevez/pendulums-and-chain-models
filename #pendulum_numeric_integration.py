@@ -1,3 +1,5 @@
+#this file represents a numeric integration with Euler of a simple pendulum trajectory
+
 #pendulum integration
 import matplotlib.pyplot as plt
 import math
@@ -57,19 +59,3 @@ while time<tmax:
     plt.cla()
 plt.show()
 
-
-
-#gdisplay(x=200,y=400)
-#fdvstime = gcurve(color=color.white)
-
-
-
-
-
-# while time < tmax:
-#     thetadot = thetadot + thetadotdot(theta, thetadot, time)*dt
-#     theta    = theta + thetadot*dt
-#     time     = time + dt
-#     plt.plot(time,theta,'or')
-#     plt.pause(0.05)
-# plt.show()
