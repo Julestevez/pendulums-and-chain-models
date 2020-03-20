@@ -57,20 +57,3 @@ while time<tmax:
     plt.pause(0.05)
     plt.cla()
 plt.show()
-
-
-
-#gdisplay(x=200,y=400)
-#fdvstime = gcurve(color=color.white)
-
-
-
-
-
-# while time < tmax:
-#     thetadot = thetadot + thetadotdot(theta, thetadot, time)*dt
-#     theta    = theta + thetadot*dt
-#     time     = time + dt
-#     plt.plot(time,theta,'or')
-#     plt.pause(0.05)
-# plt.show()
