@@ -140,4 +140,4 @@ The initial velocity is set to zero: v(0) = (0, 0, 0).
 
 This provides a stable starting point for the simulation with the cables at their target lengths and the system at rest.
 
-![](https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/pendulum_3d.gif)
+![](https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/payload_dynamics.gif)
