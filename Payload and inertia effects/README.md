@@ -1,4 +1,121 @@
-# Dynamic Simulation of Payload with Inelastic Cables: Mathematical Model
+# 1- 3D Driven Damped Pendulum with Wind: Mathematical Model
+
+This document describes the mathematical model used in the 3D pendulum simulation with a moving pivot point and wind effects.
+
+## System Parameters
+
+The simulation uses the following parameters:
+
+- g = 9.81 m/s² - Gravitational acceleration
+- m - Mass of the pendulum bob
+- d - Damping coefficient
+- L - Length of the pendulum arm
+- A - Amplitude of the driving force
+- ω - Frequency of the driving force
+- Pivot motion amplitudes: [Ax, Ay, Az]
+- Pivot motion frequencies: [ωx, ωy, ωz]
+- Wind strength and frequency
+
+## Coordinate System and State Variables
+
+The pendulum's position is described using three angles (Euler angles):
+- θ (theta): Angle from the vertical axis
+- φ (phi): Rotation angle in the horizontal plane
+- ψ (psi): Rotation around the pendulum arm
+
+The full state of the system is represented by:
+- θ, φ, ψ: The three angles
+- θ̇, φ̇, ψ̇: Their respective angular velocities
+
+## Pivot Motion
+
+The pivot position at time t is given by:
+
+```
+x(t) = Ax·sin(ωx·t)
+y(t) = Ay·cos(ωy·t)
+z(t) = Az·sin(ωz·t)
+```
+
+The velocity of the pivot is:
+
+```
+vx(t) = Ax·ωx·cos(ωx·t)
+vy(t) = -Ay·ωy·sin(ωy·t)
+vz(t) = Az·ωz·cos(ωz·t)
+```
+
+## Wind Force
+
+The wind force in the y-direction is modeled as:
+
+```
+Fwind(t) = wind_strength                     (if wind_frequency = 0)
+Fwind(t) = wind_strength·sin(wind_frequency·t)  (otherwise)
+```
+
+## Pendulum Bob Position
+
+The position of the pendulum bob relative to the pivot is:
+
+```
+x = L·sin(θ)·cos(φ)
+y = L·sin(θ)·sin(φ)
+z = -L·cos(θ)
+```
+
+## Equations of Motion
+
+The angular accelerations are given by:
+
+1. For θ (polar angle):
+```
+θ̈ = -g/L·sin(θ) - d·θ̇ + A·cos(ω·t)/L + (vy·cos(φ) - vx·sin(φ))/L
+```
+
+2. For φ (azimuthal angle):
+```
+φ̈ = -d·φ̇ + (vx·cos(φ) + vy·sin(φ))/(L·sin(θ)) + Fwind/(m·L·sin(θ)·cos(φ))
+```
+
+3. For ψ (rotation around pendulum arm):
+```
+ψ̈ = -d·ψ̇
+```
+
+## Simulation Method
+
+The simulation uses `scipy.integrate.solve_ivp` with the following steps:
+
+1. Define the state vector: [θ, φ, ψ, θ̇, φ̇, ψ̇]
+2. Set up the differential equations as described above
+3. Integrate the equations of motion over the specified time interval
+4. Calculate the Cartesian coordinates of the bob position from the angles
+
+## Initial Conditions
+
+The system starts with specified initial angles and zero angular velocities.
+
+## Visualization
+
+The animation shows:
+- The pendulum bob (red)
+- The pendulum arm (blue)
+- The pivot point (green)
+- Optionally, a trace of the bob's path (orange)
+
+The simulation captures complex behaviors including:
+- Chaotic motion
+- Influence of the moving pivot point
+- Effects of wind forces
+- Combined influence of gravity, damping, and external driving forces
+
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/pendulum_3d.gif" alt="3D pendulum with inertia and wind" width="500" height="500">
+
+
+
+
+# 2- Dynamic Simulation of Payload with Inelastic Cables: Mathematical Model
 
 This document describes the mathematical model used in the payload dynamics simulation. The simulation models a payload suspended by two inelastic cables, with one anchor point fixed and the other moving in a complex pattern over time.
 
@@ -140,4 +257,5 @@ The initial velocity is set to zero: v(0) = (0, 0, 0).
 
 This provides a stable starting point for the simulation with the cables at their target lengths and the system at rest.
 
-![](https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/payload_dynamics.gif)
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
+
