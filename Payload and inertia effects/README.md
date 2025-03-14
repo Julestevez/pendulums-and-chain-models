@@ -437,5 +437,5 @@ The simulation will automatically save an animation file named `loose_cable_dyna
 - Simplified air resistance model (linear damping)
 - No collision detection between cables
 - No elastic deformation of cables beyond simple spring model when taut
-```
+
 <img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/loose_cable_dynamics.gif" alt="Payload hanged from loose cables" width="500" height="500">
