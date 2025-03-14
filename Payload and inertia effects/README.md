@@ -110,7 +110,7 @@ The simulation captures complex behaviors including:
 - Effects of wind forces
 - Combined influence of gravity, damping, and external driving forces
 
-<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/pendulum_3d.gif" alt="3D pendulum with inertia and wind" width="500" height="500">
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/1-%20pendulum_3d.gif" alt="3D pendulum with inertia and wind" width="500" height="500">
 
 
 
@@ -257,7 +257,7 @@ The initial velocity is set to zero: v(0) = (0, 0, 0).
 
 This provides a stable starting point for the simulation with the cables at their target lengths and the system at rest.
 
-<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/2-%20payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
 
 
 
@@ -438,4 +438,4 @@ The simulation will automatically save an animation file named `loose_cable_dyna
 - No collision detection between cables
 - No elastic deformation of cables beyond simple spring model when taut
 
-<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/loose_cable_dynamics.gif" alt="Payload hanged from loose cables" width="500" height="500">
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/3-%20loose_cable_dynamics.gif" alt="Payload hanged from loose cables" width="500" height="500">
