@@ -259,3 +259,182 @@ This provides a stable starting point for the simulation with the cables at thei
 
 <img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
 
+
+
+# 3- Dual-Cable Payload Dynamics with Loose Cables
+
+## Overview
+This simulation models a payload mass suspended by two cables attached to independently moving anchor points, with realistic slack cable dynamics. It includes visualization of cable tension, slack behavior, and inertial effects of the payload.
+
+## Physical Model
+
+### Parameters
+| Parameter | Symbol | Value | Units | Description |
+|-----------|--------|-------|-------|-------------|
+| Gravitational acceleration | g | 9.81 | m/s² | Standard Earth gravity |
+| Payload mass | m | 2.0 | kg | Mass of the suspended object |
+| Damping coefficient | d | 0.2 | kg/s | Environmental damping |
+| Cable 1 length | L₁ | 1.5 | m | Natural length of first cable |
+| Cable 2 length | L₂ | 1.5 | m | Natural length of second cable |
+| Spring constant | k | 1000.0 | N/m | Stiffness of cables when stretched |
+
+### Key Formulas
+
+#### Anchor Motion Equations
+
+**Anchor 1 Position:**
+```python
+r_A1(t) = [
+    1.0 + r_x * sin(ω_x * t + φ_x),
+    1.0 + r_y * cos(ω_y * t + φ_y),
+    2.0 + r_z * sin(ω_z * t + φ_z)
+]
+```
+Where:
+- r_x = 1.0, r_y = 1.2, r_z = 0.5 (oscillation amplitudes)
+- ω_x = 1.8, ω_y = 1.3, ω_z = 2.2 (angular frequencies)
+- φ_x = 0.7, φ_y = 1.1, φ_z = 0.9 (phase shifts)
+
+**Anchor 2 Position:**
+```python
+r_A2(t) = [
+    -1.0 + r_x * cos(ω_x * t) * sin(0.8 * t),
+    -1.0 + r_y * sin(ω_y * t) * cos(0.6 * t),
+    2.0 + r_z * sin(ω_z * t)
+]
+```
+Where:
+- r_x = 1.5, r_y = 1.5, r_z = 0.7 (oscillation amplitudes)
+- ω_x = 2.5, ω_y = 2.0, ω_z = 3.0 (angular frequencies)
+
+#### Anchor Distance Constraint
+
+The maximum allowed distance between anchors:
+```
+d_max = α(L₁ + L₂)
+```
+Where α = 0.9 is a safety factor.
+
+If the actual distance exceeds this maximum, both anchor positions are adjusted:
+```
+r_A1_new = r_A1 + unit_vector * Δd/2
+r_A2_new = r_A2 - unit_vector * Δd/2
+```
+Where:
+- unit_vector = (r_A2 - r_A1)/|r_A2 - r_A1|
+- Δd = |r_A2 - r_A1| - d_max (excess distance)
+
+#### Forces on Payload
+
+**Gravitational Force:**
+```
+F_gravity = (0, 0, -m*g)
+```
+
+**Damping Force:**
+```
+F_damping = -d * velocity
+```
+
+**Cable Tension Forces** (for each cable i):
+```
+F_tension_i = k(l_i - L_i) * unit_vector_i   if l_i > L_i (stretched)
+F_tension_i = 0                              if l_i ≤ L_i (slack)
+```
+Where:
+- l_i is current cable length
+- L_i is natural cable length
+- unit_vector_i is the direction from payload to anchor
+
+**Total Force:**
+```
+F_total = F_gravity + F_damping + F_tension_1 + F_tension_2
+```
+
+#### Motion Integration
+
+**Acceleration:**
+```
+acceleration = F_total / m
+```
+
+**Semi-implicit Euler Method:**
+```
+velocity_new = velocity + acceleration * Δt
+position_new = position + velocity_new * Δt
+```
+
+### Slack Cable Modeling
+
+When cables are slack, they follow catenary curves with parametric equation:
+```
+r(t) = r_payload + x_hat*t - z_hat*s*sin(π*t/d)
+```
+Where:
+- t varies from 0 to d (direct distance between points)
+- s = 1.5*(L_i - d) is the sag parameter
+- x_hat is direction vector between endpoints
+- z_hat is the vertical sag direction
+
+### Initial Condition Finding
+
+The initial position of the payload is determined by finding the minimum of the potential energy function:
+```
+U(r) = m*g*height + 0.5*k*sum(max(0, l_i - L_i)²)
+```
+Where:
+- The first term represents gravitational potential energy
+- The second term represents elastic potential energy in the cables
+
+## Features
+
+- Realistic physics simulation of loose cables (tension only when stretched)
+- Visualization of cable state (taut vs. slack) with proper catenary curves
+- Dynamic anchor points with complex 3D movement patterns
+- Real-time display of cable tensions, lengths, and payload velocity
+- Automatic constraint enforcement to ensure physically feasible configurations
+- Animation export to GIF format
+
+## Implementation Details
+
+### Simulation Algorithm
+
+1. Calculate all anchor positions for all time steps
+2. Find initial equilibrium position
+3. For each time step:
+   - Calculate current cable lengths
+   - Determine if cables are taut or slack
+   - Calculate tension forces (zero if slack)
+   - Compute total force and acceleration
+   - Update velocity and position using semi-implicit Euler
+   - Store state variables for visualization
+
+### Visualization
+
+- Taut cables: Straight lines
+- Slack cables: Catenary curves
+- Color coding: Red (Cable 1), Blue (Cable 2), Green (Payload)
+- Status display: Cable status (TAUT/SLACK), tension values, payload speed
+
+## Requirements
+
+- Python 3.x
+- NumPy
+- Matplotlib
+- SciPy
+
+## Usage
+
+Run the script to generate and display the animation:
+```
+python cable_dynamics.py
+```
+The simulation will automatically save an animation file named `loose_cable_dynamics.gif` in the current directory.
+
+## Limitations
+
+- Cable mass is neglected (massless cable approximation)
+- Simplified air resistance model (linear damping)
+- No collision detection between cables
+- No elastic deformation of cables beyond simple spring model when taut
+```
