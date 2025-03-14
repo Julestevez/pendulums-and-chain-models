@@ -257,7 +257,7 @@ The initial velocity is set to zero: v(0) = (0, 0, 0).
 
 This provides a stable starting point for the simulation with the cables at their target lengths and the system at rest.
 
-<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/2-%20payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/2-%20two_cables_payload_dynamics.gif" alt="Mass particle hold by two cables" width="500" height="500">
 
 
 
@@ -438,4 +438,4 @@ The simulation will automatically save an animation file named `loose_cable_dyna
 - No collision detection between cables
 - No elastic deformation of cables beyond simple spring model when taut
 
-<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/3-%20loose_cable_dynamics.gif" alt="Payload hanged from loose cables" width="500" height="500">
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Payload%20and%20inertia%20effects/3-%20two_loose_cable_dynamics.gif" alt="Payload hanged from loose cables" width="500" height="500">
