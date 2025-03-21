@@ -1,4 +1,4 @@
-# Lumped-Mass Cable Simulation
+# 1- Lumped-Mass Cable Simulation
 
 This document describes a Python implementation of a lumped-mass cable model that simulates the dynamics of a cable suspended between two moving endpoints.
 
@@ -71,7 +71,7 @@ The constraint satisfaction is performed iteratively (50 iterations per time ste
 
 Below is a visualization of how the constraint satisfaction process works:
 
-![Constraint Satisfaction Process](constraint-satisfaction.png)
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Lumped-mass%20model/constraint-visualization.png" alt="Constraint" width="500" height="300">
 
 In this illustration:
 1. Two particles initially have a distance that doesn't match the target length
@@ -170,3 +170,5 @@ for t in np.arange(0, 10, 0.1):
 ## Notes
 
 The constraint solver is the core of this simulation. It ensures each segment maintains a constant length, effectively making the links inextensible while allowing the system to respond to gravity and endpoint movement.
+
+<img src="https://github.com/Julestevez/pendulums-and-chain-models/blob/master/Lumped-mass%20model/1-%20Lumped-mass%20cable.gif" alt="Lumped mass model in 2D" width="500" height="400">
