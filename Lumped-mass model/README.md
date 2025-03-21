@@ -209,7 +209,7 @@ Each particle (except the endpoints) is subjected to:
    
    ![equation](https://latex.codecogs.com/png.latex?\vec{F}_{gravity}%20=%20m_i%20\cdot%20\vec{g})
    
-   Where ![equation](https://latex.codecogs.com/png.latex?\vec{g}%20=%20[0,%20-9.81]) m/sÂ² is the gravitational acceleration vector.
+   Where ![equation](https://latex.codecogs.com/png.latex?\vec{g}%20=%20[0,%20-9.81]) m/s² is the gravitational acceleration vector.
 
 2. **Constraint Forces** (implicit):
    These forces maintain the constant distance between adjacent particles.
@@ -305,7 +305,7 @@ class Cable:
    - Different handling for endpoints vs. interior points
 
 3. **Ground Collision**:
-   - Simple constraint that keeps y-coordinates â‰¥ 0
+   - Simple constraint that keeps y-coordinates equal to 0
    - Zeroes vertical velocity components for particles on the ground
 
 4. **Simulation Loop**:
